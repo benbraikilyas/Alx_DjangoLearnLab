@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
 from django.conf import settings
+from .models import Book
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
@@ -17,3 +18,10 @@ admin.site.register(CustomUser, CustomUserAdmin)
 class SomeOtherModel(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # other fields...
+from django.contrib import admin
+
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'publication_year')  
+    search_fields = ('title', 'author')  
+    list_filter = ('publication_year',)  
