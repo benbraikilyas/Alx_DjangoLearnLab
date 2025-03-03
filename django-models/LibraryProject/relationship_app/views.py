@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Book  # ✅ تأكد من استيراد Book
+from django.views.generic.detail import DetailView  # ✅ تأكد من وجود هذا الاستيراد
+from .models import Library
 
 def list_books(request):
     books = Book.objects.all()  # ✅ تأكد من استخدام الاستعلام الصحيح
@@ -13,3 +15,8 @@ class LibraryDetailView(DetailView):
     model = Library  # ✅ تعيين النموذج المرتبط
     template_name = "relationship_app/library_detail.html"  # ✅ التأكد من استخدام القالب الصحيح
     context_object_name = "library"  # ✅ التأكد من استخدام الاسم الصحيح في القالب
+
+
+
+
+
