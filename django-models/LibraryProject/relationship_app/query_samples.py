@@ -3,7 +3,7 @@ import django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LibraryProject.settings')
 
-
+from relationship_app.models import Librarian, Library
 from relationship_app.models import Author, Book, Library, Librarian
 
 # 1️⃣ استعلام جميع الكتب لمؤلف معين
@@ -19,6 +19,6 @@ def get_books_in_library(library_name):
 # 3️⃣ استعلام أمين المكتبة لمكتبة معينة
 def get_librarian_of_library(library_name):
     library = Library.objects.get(name=library_name)
+    librarian = Librarian.objects.get(library=library
     return library.librarian
-
 
