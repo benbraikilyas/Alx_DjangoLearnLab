@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Book  # ✅ تأكد من استيراد Book
 from django.views.generic.detail import DetailView  # ✅ تأكد من وجود هذا الاستيراد
 from .models import Library
+from django.contrib.auth.forms import UserCreationForm
+
 
 def list_books(request):
     books = Book.objects.all()  # ✅ تأكد من استخدام الاستعلام الصحيح
