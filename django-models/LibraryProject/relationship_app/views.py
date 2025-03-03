@@ -18,3 +18,10 @@ class LibraryDetailView(DetailView):
     context_object_name = 'library'  # تغيير اسم المتغير داخل القالب
 
 
+from django.views.generic import DetailView
+from .models import Library
+
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'relationship_app/library_detail.html'  # مسار القالب الصحيح
+    context_object_name = 'library'  # الاسم المستخدم في القالب
