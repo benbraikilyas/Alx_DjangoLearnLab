@@ -41,3 +41,11 @@ urlpatterns = [
     path('librarian-view/', views.librarian_view, name='librarian_view'),
     path('member-view/', views.member_view, name='member_view'),
 ]
+
+
+from django.urls import path
+from .views.admin_view import admin_view
+
+urlpatterns = [
+    path('admin-view/', admin_view, name='admin_view'),
+]
