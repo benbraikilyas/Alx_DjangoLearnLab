@@ -53,17 +53,7 @@ def register_view(request):
     return render(request, 'relationship_app/register.html', {'form': form})
 
 # تحقق مما إذا كان المستخدم "Admin"
-def is_admin(user):
-    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
 
-
-# تحقق مما إذا كان المستخدم "Librarian"
-def is_librarian(user):
-    return user.userprofile.role == 'Librarian'
-
-# تحقق مما إذا كان المستخدم "Member"
-def is_member(user):
-    return user.userprofile.role == 'Member'
 
 @user_passes_test(is_admin)
 def admin_view(request):
@@ -78,3 +68,11 @@ def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
 
+def is_admin(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+
+def is_librarian(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
+
+def is_member(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
