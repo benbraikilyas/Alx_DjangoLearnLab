@@ -115,3 +115,19 @@ def delete_book(request, book_id):
         book.delete()
         return redirect('book_list')
     return render(request, 'relationship_app/book_confirm_delete.html', {'book': book})
+
+
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    pass
+
+@permission_required('relationship_app.can_change_book')
+def edit_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    pass
+
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+   
+    pass
