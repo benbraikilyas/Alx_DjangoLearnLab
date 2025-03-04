@@ -1,22 +1,27 @@
 from django.shortcuts import render
-from .models import Book  # ✅ تأكد من استيراد Book
-from django.views.generic.detail import DetailView  # ✅ تأكد من وجود هذا الاستيراد
+from .models import Book  
+from django.views.generic.detail import DetailView 
 from .models import Library
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import permission_required
+from .forms import BookForm  
+
+
 
 def list_books(request):
-    books = Book.objects.all()  # ✅ تأكد من استخدام الاستعلام الصحيح
-    return render(request, "relationship_app/list_books.html", {"books": books})  # ✅ تأكد من استخدام القالب الصحيح
+    books = Book.objects.all()  
+    return render(request, "relationship_app/list_books.html", {"books": books})  
 
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView  # ✅ تأكد من استيراد DetailView
-from .models import Library  # ✅ تأكد من استيراد Library
+from django.views.generic import DetailView  
+from .models import Library  
 
 class LibraryDetailView(DetailView):
-    model = Library  # ✅ تعيين النموذج المرتبط
-    template_name = "relationship_app/library_detail.html"  # ✅ التأكد من استخدام القالب الصحيح
-    context_object_name = "library"  # ✅ التأكد من استخدام الاسم الصحيح في القالب
+    model = Library 
+    template_name = "relationship_app/library_detail.html"  
+    context_object_name = "library"  
 
 
 
@@ -32,7 +37,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')  # استبدل 'home' بصفحتك الرئيسية
+            return redirect('home')  
     else:
         form = AuthenticationForm()
     return render(request, 'relationship_app/login.html', {'form': form})
@@ -76,3 +81,37 @@ def is_librarian(user):
 
 def is_member(user):
     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
+
+
+
+
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book(request):
+    if request.method == "POST":
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+        form = BookForm()
+    return render(request, 'relationship_app/book_form.html', {'form': form})
+
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def edit_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+        form = BookForm(instance=book)
+    return render(request, 'relationship_app/book_form.html', {'form': form})
+
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    if request.method == "POST":
+        book.delete()
+        return redirect('book_list')
+    return render(request, 'relationship_app/book_confirm_delete.html', {'book': book})
