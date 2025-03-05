@@ -51,3 +51,14 @@ urlpatterns = [
     path('add_book/', add_book, name='add_book'),
     path('edit_book/<int:book_id>/', edit_book, name='edit_book'),  # إذا كان يحتاج إلى معرف
 ]
+
+
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('relationship_app.urls')),  # تأكد من تضمين التطبيق الفرعي
+]
+
