@@ -44,3 +44,10 @@ urlpatterns = [
     path('admin-view/', admin_view, name='admin_view'),
 ]
 
+from django.urls import path
+from .views import add_book, edit_book  # تأكد من استيراد الدوال الصحيحة
+
+urlpatterns = [
+    path('add_book/', add_book, name='add_book'),
+    path('edit_book/<int:book_id>/', edit_book, name='edit_book'),  # إذا كان يحتاج إلى معرف
+]
