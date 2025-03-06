@@ -157,3 +157,19 @@ CSP_STYLE_SRC = ("'self'", "https://fonts.googleapis.com")
 MIDDLEWARE = [
     'csp.middleware.CSPMiddleware',  
 ]
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Use HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # One year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Secure cookies
+SESSION_COOKIE_SECURE = True  # Ensure session cookies are only transmitted over HTTPS
+CSRF_COOKIE_SECURE = True  # Ensure CSRF cookies are only transmitted over HTTPS
+
+# Security headers
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME type sniffing
+SECURE_BROWSER_XSS_FILTER = True  # Enable the browser's XSS filtering
