@@ -152,3 +152,8 @@ SECURE_CONTENT_TYPE_NOSNIFF = True  # منع المتصفح من محاولة ت
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'", "https://cdnjs.cloudflare.com", "https://ajax.googleapis.com")
 CSP_STYLE_SRC = ("'self'", "https://fonts.googleapis.com")
+
+
+MIDDLEWARE = [
+    'csp.middleware.CSPMiddleware',  
+]
