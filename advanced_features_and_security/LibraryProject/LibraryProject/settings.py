@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -132,3 +132,23 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
+
+# تأكد من تعطيل Debug في بيئة الإنتاج
+DEBUG = False  # لا تستخدم True في الإنتاج
+
+# تقييد المضيفات المسموح بها
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']  # استبدل بنطاقك الفعلي
+
+# تأمين ملفات تعريف الارتباط
+CSRF_COOKIE_SECURE = True  # يجبر CSRF على HTTPS
+SESSION_COOKIE_SECURE = True  # يجبر الجلسات على HTTPS
+
+# حماية ضد هجمات XSS و Clickjacking
+SECURE_BROWSER_XSS_FILTER = True  # تمكين حماية المتصفح ضد XSS
+X_FRAME_OPTIONS = 'DENY'  # منع تحميل الموقع داخل iframe لتجنب Clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # منع المتصفح من محاولة تخمين نوع المحتوى
+
+# سياسة أمان المحتوى (CSP) - تحتاج إلى مكتبة `django-csp`
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "https://cdnjs.cloudflare.com", "https://ajax.googleapis.com")
+CSP_STYLE_SRC = ("'self'", "https://fonts.googleapis.com")
