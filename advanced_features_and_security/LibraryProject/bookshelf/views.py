@@ -11,3 +11,10 @@ def add_book(request):
     
     return render(request, "bookshelf/form_example.html")
 
+from django.shortcuts import render
+from .models import Book
+
+def search_books(request):
+    search_query = request.GET.get('q', '')
+    books = Book.objects.filter(title__icontains=search_query)  # استخدم Django ORM لتجنب SQL Injection
+    return render(request, 'bookshelf/book_list.html', {'books': books})
