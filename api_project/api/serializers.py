@@ -1,7 +1,9 @@
-from rest_framework import serializers
-from .models import book
 
-class BookSerializer(serializers.ModelSerializer):  # ✅ استخدم ModelSerializer بحروف كبيرة
+
+from rest_framework import serializers
+from .models import Book
+
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
-        model = book
-        fields = '__all__'  # ✅ استخدم '__all__' لتضمين جميع الحقول
+        model = Book
+        fields = '__all__'  # أو حدد الحقول التي تريد تضمينها
