@@ -7,6 +7,7 @@ class BookList(generics.ListAPIView):
     queryset = book.objects.all()  
     serializer_class = BookSerializer
 
+# إنشاء ViewSet للتعامل مع عمليات CRUD
 class BookViewSet(viewsets.ModelViewSet):
-    queryset = book.objects.all()
-    serializer_class = BookSerializer
+    queryset = Book.objects.all()  # جلب جميع الكتب من قاعدة البيانات
+    serializer_class = BookSerializer  # استخدام BookSerializer لتحويل البيانات
