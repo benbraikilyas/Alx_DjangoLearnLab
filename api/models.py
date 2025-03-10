@@ -8,4 +8,5 @@ class book(models.Model):
     published_date = models.DateField(null=True, blank=True)  # تاريخ النشر (اختياري)
 
     def __str__(self):
-        return self.title
+        return self.title       
+    
