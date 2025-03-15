@@ -35,23 +35,5 @@ class BookDeleteView(generics.DestroyAPIView):
 
 
 
-class BookListView(generics.ListCreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
 
-class BookDetailView(generics.RetrieveAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-
-class BookCreateView(generics.CreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-
-class BookUpdateView(generics.UpdateAPIView):  # ✅ تحديث بيانات كتاب
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-
-class BookDeleteView(generics.DestroyAPIView):  # ✅ حذف كتاب
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
 
