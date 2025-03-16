@@ -3,6 +3,7 @@ from .models import book
 from .serializers import BookSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated 
+from django_filters import rest_framework
 
 class BookList(generics.ListAPIView):
     queryset = book.objects.all()  
