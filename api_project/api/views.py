@@ -3,10 +3,9 @@ from .models import book
 from .serializers import BookSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated 
-from django_filters import rest_framework
-from django_filters import rest_framework as filters
+from django_filters import rest_framework 
 from rest_framework import viewsets, filters as drf_filters
-from django_filters import rest_framework as filters
+
 
 class BookList(generics.ListAPIView):
     queryset = book.objects.all()  
