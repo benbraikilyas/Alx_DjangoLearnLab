@@ -1,0 +1,11 @@
+{% for post in posts %}
+    <h2><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a></h2>
+    <p>{{ post.content|truncatewords:20 }}</p>
+    <small>Published on: {{ post.date_posted }}</small>
+    <br>
+    {% if user.is_authenticated and user == post.author %}
+        <a href="{% url 'post-update' post.pk %}">amendment</a>
+        <a href="{% url 'post-delete' post.pk %}">delete</a>
+    {% endif %}
+{% endfor %}
+<a href="{% url 'post-create' %}">  add a new post</a>
