@@ -1,0 +1,9 @@
+<h2>Search Results: "{{ query }}"</h2>
+{% for post in posts %}
+    <div>
+        <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+        <p>{{ post.content|slice:":100" }}...</p>
+    </div>
+{% empty %}
+    <p>No posts found matching your query.</p>
+{% endfor %}
