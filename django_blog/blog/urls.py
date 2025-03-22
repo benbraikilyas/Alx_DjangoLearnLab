@@ -4,6 +4,19 @@ from .views import add_comment, edit_comment, delete_comment
 from .views import CommentCreateView, CommentUpdateView, CommentDeleteView
 
 
+
+urlpatterns = [
+    # Create a new comment under a specific post
+    path('post/<int:pk>/comments/new/', CommentCreateView.as_view(), name='add-comment'),
+    
+    # Update a specific comment
+    path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='edit-comment'),
+    
+    # Delete a specific comment
+    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='delete-comment'),
+]
+
+
 urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
@@ -39,9 +52,4 @@ urlpatterns = [
 ]
 
 
-urlpatterns = [
-    path('posts/<int:post_id>/comments/new/', CommentCreateView.as_view(), name='add-comment'),
-    path('comments/<int:pk>/edit/', CommentUpdateView.as_view(), name='edit-comment'),
-    path('comments/<int:pk>/delete/', CommentDeleteView.as_view(), name='delete-comment'),
-]
 
