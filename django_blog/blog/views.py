@@ -97,10 +97,6 @@ def delete_comment(request, comment_id):
         comment.delete()
     return redirect('post-detail', pk=comment.post.id)
 
-
-
-
-
 class CommentCreateView(CreateView):
     model = Comment
     form_class = CommentForm
@@ -148,3 +144,9 @@ def search_posts(request):
         posts = Post.objects.all()
 
     return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
+
+
+def posts_by_tag(request, tag_name):
+    tag = Tag.objects.get(name=tag_name)
+    posts = tag.posts.all()
+    return render(request, 'blog/posts_by_tag.html', {'posts': posts, 'tag': tag})
