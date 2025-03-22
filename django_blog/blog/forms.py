@@ -39,3 +39,11 @@ class PostForm(forms.ModelForm):
         tags = self.cleaned_data['tags']
         tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
         return tag_list
+
+
+class PostForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), required=False)
+
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']
