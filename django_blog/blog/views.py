@@ -10,6 +10,9 @@ from .forms import CommentForm
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 from .models import Comment, Post
+from django.db.models import Q
+from django.shortcuts import render
+from .models import Post, Tag
 
 
 
@@ -134,3 +137,14 @@ class CommentDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('post-detail', kwargs={'pk': self.object.post.id})
+
+def search_posts(request):
+    query = request.GET.get('q')
+    if query:
+        posts = Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query)
+        ).distinct()
+    else:
+        posts = Post.objects.all()
+
+    return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
