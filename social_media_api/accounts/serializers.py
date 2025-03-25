@@ -38,7 +38,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             password=validated_data['password']
         )
-        # Create and return the user instance
+         Token.objects.create(user=user)
         return user
 
 
